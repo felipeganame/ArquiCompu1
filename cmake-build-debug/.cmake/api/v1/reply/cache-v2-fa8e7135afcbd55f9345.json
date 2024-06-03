@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/felipeganame/Desktop/arquicompu/cmake-build-debug"
+			"value" : "/Users/felipeganame/Desktop/ArquiCompu1/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -515,7 +515,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/felipeganame/Desktop/arquicompu"
+			"value" : "/Users/felipeganame/Desktop/ArquiCompu1"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -1087,7 +1087,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/felipeganame/Desktop/arquicompu/cmake-build-debug"
+			"value" : "/Users/felipeganame/Desktop/ArquiCompu1/cmake-build-debug"
 		},
 		{
 			"name" : "arquicompu_IS_TOP_LEVEL",
@@ -1111,7 +1111,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/felipeganame/Desktop/arquicompu"
+			"value" : "/Users/felipeganame/Desktop/ArquiCompu1"
 		}
 	],
 	"kind" : "cache",

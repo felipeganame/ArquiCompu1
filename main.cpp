@@ -70,7 +70,7 @@ void autofantastico() {
     printf("Auto fantástico en ejecución. Presiona 'q' para salir.\n");
     while (1) {
         for (int i = 0; i < num_leds; i++) {
-            printf("\r");
+            printf("\n");
             for (int j = 0; j < num_leds; j++) {
                 if (j <= i) {
                     printf("* ");
@@ -105,7 +105,7 @@ void choque() {
     while (1) {
         // Prender LEDs del 1 al 8
         for (int i = 0; i < num_leds; i++) {
-            printf("\r");
+            printf("\n");
             for (int j = 0; j < num_leds; j++) {
                 if (j == i) {
                     printf("* ");
@@ -131,7 +131,7 @@ void choque() {
 
         // Prender LEDs del 8 al 1
         for (int i = num_leds - 1; i >= 0; i--) {
-            printf("\r");
+            printf("\n");
             for (int j = 0; j < num_leds; j++) {
                 if (j == i) {
                     printf("* ");
@@ -177,7 +177,7 @@ void secuencia_formula1() {
 
         // Encender luces una por una
         for (int i = 0; i < num_leds; i++) {
-            printf("\r");
+            printf("\n");
             for (int j = 0; j < num_leds; j++) {
                 if (j <= i) {
                     printf("* ");
@@ -202,7 +202,7 @@ void secuencia_formula1() {
         delay(random_delay);
 
         // Apagar todas las luces
-        printf("\r");
+        printf("\n");
         for (int i = 0; i < num_leds; i++) {
             printf("- ");
         }
@@ -215,6 +215,66 @@ void secuencia_formula1() {
     }
 }
 
+//sirenas
+void sirenasEmergencia() {
+    int leds[] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+    int num_leds = sizeof(leds) / sizeof(leds[0]);
+
+    printf("Luces de ambulancia en ejecución. Presiona 'q' para salir.\n");
+    while (1) {
+        // Parpadeo de luces en grupos
+        for (int i = 0; i < 2; i++) {
+            // Encender los primeros cuatro LEDs
+            printf("\n");
+            for (int j = 0; j < num_leds; j++) {
+                if (j < 4) {
+                    printf("* ");
+                } else {
+                    printf("- ");
+                }
+            }
+            fflush(stdout);
+            delay(speed / 2); // Parpadeo rápido
+
+            if (kbhit()) {
+                char c = getch();
+                if (c == 'q') {
+                    printf("\nSaliendo de luces de ambulancia...\n");
+                    return;
+                } else if (c == 'u' && speed > SPEED_INCREMENT) {
+                    speed -= SPEED_INCREMENT;
+                } else if (c == 'd') {
+                    speed += SPEED_INCREMENT;
+                }
+            }
+
+            // Encender los últimos cuatro LEDs
+            printf("\n");
+            for (int j = 0; j < num_leds; j++) {
+                if (j >= 4) {
+                    printf("* ");
+                } else {
+                    printf("- ");
+                }
+            }
+            fflush(stdout);
+            delay(speed / 2); // Parpadeo rápido
+
+            if (kbhit()) {
+                char c = getch();
+                if (c == 'q') {
+                    printf("\nSaliendo de luces de ambulancia...\n");
+                    return;
+                } else if (c == 'u' && speed > SPEED_INCREMENT) {
+                    speed -= SPEED_INCREMENT;
+                } else if (c == 'd') {
+                    speed += SPEED_INCREMENT;
+                }
+            }
+        }
+    }
+}
+
 
 
 // Menu principal
@@ -223,7 +283,7 @@ void mostrar_menu() {
     printf("1. Autofantastico\n");
     printf("2. Choque\n");
     printf("3. Carrera de Formula 1\n");
-    printf("4. MORSE\n");
+    printf("4. Sirenas de emergencia\n");
     printf("0. Salir\n");
 }
 
@@ -253,6 +313,7 @@ int main() {
                 secuencia_formula1();
                 break;
             case 4:
+                sirenasEmergencia();
                 break;
             case 0:
                 printf("Saliendo del programa...\n");

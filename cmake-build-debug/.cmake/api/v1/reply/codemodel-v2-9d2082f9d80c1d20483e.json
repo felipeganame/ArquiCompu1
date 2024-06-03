@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/felipeganame/Desktop/arquicompu/cmake-build-debug",
-		"source" : "/Users/felipeganame/Desktop/arquicompu"
+		"build" : "/Users/felipeganame/Desktop/ArquiCompu1/cmake-build-debug",
+		"source" : "/Users/felipeganame/Desktop/ArquiCompu1"
 	},
 	"version" : 
 	{

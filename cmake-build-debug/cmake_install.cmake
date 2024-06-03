@@ -1,4 +1,4 @@
-# Install script for directory: /Users/felipeganame/Desktop/arquicompu
+# Install script for directory: /Users/felipeganame/Desktop/ArquiCompu1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/felipeganame/Desktop/arquicompu/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/felipeganame/Desktop/ArquiCompu1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
