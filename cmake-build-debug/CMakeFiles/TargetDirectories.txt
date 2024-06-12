@@ -1,3 +1,3 @@
-/Users/felipeganame/Desktop/ArquiCompu1/cmake-build-debug/CMakeFiles/arquicompu.dir
-/Users/felipeganame/Desktop/ArquiCompu1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/felipeganame/Desktop/ArquiCompu1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/felipeganame/CLionProjects/arq.comp/cmake-build-debug/CMakeFiles/arq_comp.dir
+/Users/felipeganame/CLionProjects/arq.comp/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/felipeganame/CLionProjects/arq.comp/cmake-build-debug/CMakeFiles/rebuild_cache.dir

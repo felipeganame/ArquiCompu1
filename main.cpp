@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h> // for usleep
+#include <unistd.h> // para usleep
 #include <stdlib.h>
 #include <sys/select.h>
 #include <sys/time.h>
@@ -9,15 +9,15 @@
 #define MAX_ATTEMPTS 3
 #define SPEED_INCREMENT 100000
 
-// Global variable to control the speed
+// Variable global para controlar la velocidad
 int speed = 500000; // 500ms
 
-// Function to introduce a delay
+// Función para introducir un tiempo de demora
 void delay(unsigned long int microseconds) {
     usleep(microseconds);
 }
 
-// Function to check if a key has been pressed
+// Función para chequear si una tecla ha sido presionada
 int kbhit(void) {
     struct timeval tv = { 0L, 0L };
     fd_set fds;
@@ -26,7 +26,7 @@ int kbhit(void) {
     return select(1, &fds, NULL, NULL, &tv) > 0;
 }
 
-// Function to get a character from the keyboard without echoing
+// Función para obtener un carácter del teclado sin eco
 char getch(void) {
     char c;
     system("stty -echo");
@@ -41,28 +41,39 @@ int control_acceso() {
     int attempts = 0;
 
     while (attempts < MAX_ATTEMPTS) {
-        printf("Ingrese su password de 5 digitos: ");
+        printf("Ingrese su password de 5 dígitos: ");
         scanf("%5s", input);
 
         if (strcmp(input, PASSWORD) == 0) {
             printf("Bienvenido al sistema\n");
             return 1;
         } else {
-            printf("Password no valida\n");
+            printf("Password no válida\n");
             attempts++;
         }
     }
 
-    printf("Demasiados intentos fallidos. El programa se abortara.\n");
+    printf("Demasiados intentos fallidos. El programa se abortará.\n");
     return 0;
 }
 
-// Function to get a random time in milliseconds between min and max
+// Función para obtener un tiempo aleatorio en milisegundos entre min y max
 unsigned long int get_random_delay(unsigned long int min, unsigned long int max) {
     return min + (rand() % (max - min + 1));
 }
 
-//genera un secuencia en donde se preden de izq a der las luces una por una hasta que todas queden prendidas
+// Función para mostrar el patrón de latido del corazón
+void disp_heartbeat_pattern(int pattern) {
+    for (int i = 7; i >= 0; i--) {
+        if (pattern & (1 << i)) {
+            printf("* ");
+        } else {
+            printf("- ");
+        }
+    }
+}
+
+// Genera una secuencia en donde se encienden de izquierda a derecha las luces una por una hasta que todas queden encendidas
 void autofantastico() {
     int leds[] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
     int num_leds = sizeof(leds) / sizeof(leds[0]);
@@ -96,7 +107,7 @@ void autofantastico() {
     }
 }
 
-//funcion que permite generar el efecto choque, de izq a der y luego der a izq
+// Función que permite generar el efecto choque, de izquierda a derecha y luego derecha a izquierda
 void choque() {
     int leds[] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
     int num_leds = sizeof(leds) / sizeof(leds[0]);
@@ -166,7 +177,7 @@ void secuencia_formula1() {
     while (1) {
         // Esperar por entrada del usuario para iniciar la secuencia
         while (!kbhit()) {
-            // Do nothing, just wait
+            // No hacer nada, solo esperar
         }
 
         char c = getch();
@@ -198,7 +209,7 @@ void secuencia_formula1() {
         }
 
         // Esperar un tiempo aleatorio antes de apagar todas las luces
-        unsigned long int random_delay = get_random_delay(1000, 5000); // Random delay between 1 and 5 seconds
+        unsigned long int random_delay = get_random_delay(1000, 5000); // Retardo aleatorio entre 1 y 5 segundos
         delay(random_delay);
 
         // Apagar todas las luces
@@ -215,7 +226,7 @@ void secuencia_formula1() {
     }
 }
 
-//sirenas
+// Sirenas
 void sirenasEmergencia() {
     int leds[] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
     int num_leds = sizeof(leds) / sizeof(leds[0]);
@@ -275,20 +286,43 @@ void sirenasEmergencia() {
     }
 }
 
+void heartbeat_sequence() {
+    int heartbeat_pattern[] = {0x01, 0x03, 0x07, 0x0F, 0x1F, 0x3F, 0x7F, 0xFF, 0x7F, 0x3F, 0x1F, 0x0F, 0x07, 0x03, 0x01};
 
+    int quit_flag = 0; // Variable para indicar si se debe salir de la secuencia
 
-// Menu principal
+    while (!quit_flag) {
+        for (int i = 0; i < sizeof(heartbeat_pattern) / sizeof(heartbeat_pattern[0]); i++) {
+            printf("\rLEDs: ");
+            disp_heartbeat_pattern(heartbeat_pattern[i]);
+            fflush(stdout);
+            delay(speed);
+
+            // Comprobar si se ha presionado la tecla 'q'
+            if (kbhit()) {
+                char c = getch();
+                if (c == 'q') {
+                    quit_flag = 1; // Salir de la secuencia
+                    break;
+                }
+            }
+        }
+    }
+}
+
+// Menú principal
 void mostrar_menu() {
     printf("\nSeleccione una secuencia de luces:\n");
     printf("1. Autofantastico\n");
     printf("2. Choque\n");
     printf("3. Carrera de Formula 1\n");
     printf("4. Sirenas de emergencia\n");
+    printf("5. Secuencia de latido\n");
     printf("0. Salir\n");
 }
 
 int main() {
-    // Inicializar el generador de numeros aleatorios
+    // Inicializar el generador de números aleatorios
     srand(time(NULL));
 
     if (!control_acceso()) {
@@ -299,7 +333,7 @@ int main() {
 
     while (1) {
         mostrar_menu();
-        printf("Ingrese su opcion: ");
+        printf("Ingrese su opción: ");
         scanf("%d", &opcion);
 
         switch (opcion) {
@@ -315,11 +349,14 @@ int main() {
             case 4:
                 sirenasEmergencia();
                 break;
+            case 5:
+                heartbeat_sequence();
+                break;
             case 0:
                 printf("Saliendo del programa...\n");
                 return 0;
             default:
-                printf("Opcion no valida. Intente de nuevo.\n");
+                printf("Opción no válida. Intente de nuevo.\n");
                 break;
         }
     }

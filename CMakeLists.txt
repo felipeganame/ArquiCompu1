@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.22)
-project(arquicompu)
+cmake_minimum_required(VERSION 3.28)
+project(arq_comp)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
-add_executable(arquicompu main.cpp)
+add_executable(arq_comp main.cpp)
