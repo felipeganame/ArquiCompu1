@@ -48,12 +48,12 @@ int main(void) {
         }
 
         if (passwordFlag) {
-            printf("Bienvenido :)\n\n");
+            printf("Proyecto arquitectura de computadoras :)\n Autores: Vicente Monzo, Arnon Nahmias, Felipe Ganame\n\n");
             menu();
-            printf("Trabajo terminado!!\n");
+            printf("hasta luego!!\n");
             break;
         } else {
-            printf("La clave es incorrecta...!\n\n");
+            printf("La clave no es correcta!\n\n");
         }
     }
 }
@@ -85,12 +85,16 @@ void menu() {
     int opcion;
     do {
         clearInputBuffer();
-        printf("Seleccione una opcion:\n");
-        printf("1: Auto Fantastico\n");
-        printf("2: El Choque\n");
-        printf("3: ambulancia\n");
-        printf("4: Formula 1\n");
-        printf("0: Salir\n");
+        printf("*****************************\n");
+        printf("*                           *\n");
+        printf("*  Seleccione una opcion:   *\n");
+        printf("*  1: Auto Fantastico       *\n");
+        printf("*  2: El Choque             *\n");
+        printf("*  3: Ambulancia            *\n");
+        printf("*  4: Formula 1             *\n");
+        printf("*  0: Salir                 *\n");
+        printf("*                           *\n");
+        printf("*****************************\n");
         scanf("%d", &opcion);
 
         switch (opcion) {
@@ -116,8 +120,8 @@ void menu() {
 
 void autoFantastico() {
     printf("Presione esc para finalizar la secuencia\n");
-    printf("Presione W para aumentar la velocidad\n");
-    printf("Presione S para disminuir la velocidad\n");
+    printf("Presione U para aumentar la velocidad\n");
+    printf("Presione D para disminuir la velocidad\n");
     printf("Auto Fantastico:\n");
 
     unsigned char output;
@@ -152,8 +156,8 @@ void autoFantastico() {
 
 void choque() {
     printf("Presione esc para finalizar la secuencia\n");
-    printf("Presione W para aumentar la velocidad\n");
-    printf("Presione S para disminuir la velocidad\n");
+    printf("Presione U para aumentar la velocidad\n");
+    printf("Presione D para disminuir la velocidad\n");
     printf("Choque:\n");
 
     unsigned char output, aux1, aux2;
@@ -178,8 +182,8 @@ void choque() {
 
 void ambulancia() {
     printf("Presione esc para finalizar la secuencia\n");
-    printf("Presione W para aumentar la velocidad\n");
-    printf("Presione S para disminuir la velocidad\n");
+    printf("Presione U para aumentar la velocidad\n");
+    printf("Presione D para disminuir la velocidad\n");
     printf("Ambulancia:\n");
 
     unsigned char ambulancia[] = {0x0, 0xF, 0xF, 0xF0, 0xF0, 0x0, 0x1, 0x2, 0x4, 0x8, 0x10, 0x20, 0x40, 0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1};
@@ -198,8 +202,8 @@ void ambulancia() {
 
 void secuencia_formula1() {
     printf("Presione esc para finalizar la secuencia\n");
-    printf("Presione W para aumentar la velocidad\n");
-    printf("Presione S para disminuir la velocidad\n");
+    printf("Presione U para aumentar la velocidad\n");
+    printf("Presione D para disminuir la velocidad\n");
     printf("Carrera de Formula 1:\n");
 
     unsigned char output = 0x0;
@@ -225,9 +229,15 @@ void secuencia_formula1() {
         ledShow(output);
         disp_binary(output);
 
-        if (delay(3) == 0) { // espera un tiempo antes de iniciar la siguiente secuencia
-            turnOff();
-            return;
+        // if (delay(3) == 0) { // espera un tiempo antes de iniciar la siguiente secuencia
+        //     turnOff();
+        //     return;
+        // }
+        for (int i = 0; i < 30; i++) {
+            if (delay(1) == 0) { // verifica si se presiona una tecla para salir
+                turnOff();
+                return;
+            }
         }
     }
 }
@@ -269,16 +279,16 @@ bool keyHit(int index) {
     // Attempt to read a character from the standard input
     ch = getchar();
 
-    //W key is hit
-    if(ch == 119) {
+    //U key is hit
+    if(ch == 117) { //ASCII para u
         if(delayTime[index] > 1000)
         {
             delayTime[index] = delayTime[index] - 1000;
         }
     }
 
-    //S key is hit
-    if(ch == 115) {
+    //D key is hit
+    if(ch == 100) {  //ASCII para d
         delayTime[index] = delayTime[index] + 1000;
     }
 
@@ -302,11 +312,6 @@ void pinSetup(void) {
 
     for (int i = 0; i < 8; i++) {
         pinMode(led[i], OUTPUT);
-    }
-
-    // Verificar la configuración de los pines
-    for (int i = 0; i < 8; i++) {
-        printf("LED pin %d configurado como OUTPUT\n", led[i]);
     }
 }
 
