@@ -34,8 +34,8 @@ int main(void) {
     char setPassword[5] = {'1', '2', '3', '4', '5'};
     char passwordInput[5];
 
-    // Receive password and checks it
-    // If it receives an incorrect password 3 times, it aborts
+    //Recibe la contrasenia y la chequea
+    //si la recibe y es erronea tres veces cierra el programa
     for (int i = 0; i < 3; i++) {
         bool passwordFlag = true;
         getPassword(passwordInput);
@@ -192,7 +192,7 @@ void ambulancia() {
         for(int i = 0 ; i < 21 ; i++) {
             ledShow(ambulancia[i]);
             disp_binary(ambulancia[i]);
-            if (delay(3) == 0) {
+            if (delay(2) == 0) {
                 turnOff();
                 return;
             }
@@ -214,13 +214,13 @@ void secuencia_formula1() {
             ledShow(output);
             disp_binary(output);
 
-            if (delay(1) == 0) { // espera un tiempo antes de encender el siguiente LED
+            if (delay(3) == 0) { // espera un tiempo antes de encender el siguiente LED
                 turnOff();
                 return;
             }
         }
 
-        if (delay(1) == 0) { // espera un tiempo antes de apagar todos los LEDs
+        if (delay(3) == 0) { // espera un tiempo antes de apagar todos los LEDs
             turnOff();
             return;
         }
@@ -230,7 +230,7 @@ void secuencia_formula1() {
         disp_binary(output);
 
         for (int i = 0; i < 30; i++) {
-            if (delay(1) == 0) { // verifica si se presiona una tecla para salir
+            if (delay(3) == 0) { // verifica si se presiona una tecla para salir
                 turnOff();
                 return;
             }
@@ -241,23 +241,23 @@ void secuencia_formula1() {
 struct termios modifyTerminalConfig(void) {
     struct termios oldattr, newattr;
 
-    // Get the current terminal attributes
+    //obtiene los atributos de la terminal
     tcgetattr(STDIN_FILENO, &oldattr);
 
-    // Copy the current attributes to the new attributes
+    //copia los atributos ya existenes a los nuevos
     newattr = oldattr;
 
-    // Disable canonical mode and echo
+    //desabilita el modo canonico y echo
     newattr.c_lflag &= ~(ICANON | ECHO);
 
-    // Apply the new attributes to the terminal
+    //aplica los nuevos atributos a la terminal
     tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
 
     return oldattr;
 }
 
 void restoreTerminalConfig(struct termios oldattr) {
-    // Restore the original terminal attributes
+    //restablece los atributos originales a la terminal
     tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
 }
 
@@ -265,37 +265,37 @@ bool keyHit(int index) {
     struct termios oldattr = modifyTerminalConfig();
     int ch, oldf;
 
-    // Set the file descriptor of the standard input to non-blocking mode
+    //setea el archivo descriptor del input estandar a que no se bloquee
     oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
     fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
 
-    // Attempt to read a character from the standard input
+    //intenta leer un caracter de un input estandar
     ch = getchar();
 
-    //U key is hit
+    //cuando se presiona U
     if(ch == 117) { //ASCII para u
         if(delayTime[index] > 1000) {
             delayTime[index] = delayTime[index] - 1000;
         }
     }
 
-    //D key is hit
+    //cuando se presiona D
     if(ch == 100) {  //ASCII para d
         delayTime[index] = delayTime[index] + 1000;
     }
 
     restoreTerminalConfig(oldattr);
 
-    // Restore the file descriptor mode
+    // Restablece el archivo a modo descriptor
     fcntl(STDIN_FILENO, F_SETFL, oldf);
 
-    // If esc key is hit, return 1
+    // si se presiona escape devuelve 1
     if (ch == 27) {
         ungetc(ch, stdin);
         return 1;
     }
 
-    // Esc wasn't hit, return 0
+    // si escape no se presiona devuelve 0
     return 0;
 }
 
@@ -327,7 +327,7 @@ void clearInputBuffer() {
     printf("Presione ENTER para confirmar\n");
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {
-        // Discard characters
+        // desecha los caracteres
     }
 }
 
