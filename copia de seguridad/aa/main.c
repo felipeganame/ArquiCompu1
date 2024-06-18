@@ -16,7 +16,7 @@ void menu();
 void autoFantastico();
 void choque();
 // void ambulancia();
-void secuencia_formula1();
+//void secuencia_formula1();
 struct termios modifyTerminalConfig(void);
 void restoreTerminalConfig(struct termios);
 bool keyHit(int index);
@@ -199,7 +199,7 @@ void choque() {
 //         }
 //     }
 // }
-
+/*
 void secuencia_formula1() {
     printf("Presione esc para finalizar la secuencia\n");
     printf("Presione U para aumentar la velocidad\n");
@@ -241,7 +241,7 @@ void secuencia_formula1() {
         }
     }
 }
-
+*/
 struct termios modifyTerminalConfig(void) {
     struct termios oldattr, newattr;
 

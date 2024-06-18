@@ -16,7 +16,7 @@ void menu();
 void autoFantastico();
 void choque();
 // void ambulancia();
-void secuencia_formula1();
+// void secuencia_formula1();
 struct termios modifyTerminalConfig(void);
 void restoreTerminalConfig(struct termios);
 bool keyHit(int index);
@@ -179,26 +179,26 @@ void choque() {
         }
     }
 }
+/*
+void ambulancia() {
+    printf("Presione esc para finalizar la secuencia\n");
+    printf("Presione U para aumentar la velocidad\n");
+    printf("Presione D para disminuir la velocidad\n");
+    printf("Ambulancia:\n");
 
-// void ambulancia() {
-//     printf("Presione esc para finalizar la secuencia\n");
-//     printf("Presione U para aumentar la velocidad\n");
-//     printf("Presione D para disminuir la velocidad\n");
-//     printf("Ambulancia:\n");
+    unsigned char ambulancia[] = {0x0, 0xF, 0xF, 0xF0, 0xF0, 0x0, 0x1, 0x2, 0x4, 0x8, 0x10, 0x20, 0x40, 0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1};
 
-//     unsigned char ambulancia[] = {0x0, 0xF, 0xF, 0xF0, 0xF0, 0x0, 0x1, 0x2, 0x4, 0x8, 0x10, 0x20, 0x40, 0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1};
-
-//     while (true) {
-//         for(int i = 0 ; i < 21 ; i++) {
-//             ledShow(ambulancia[i]);
-//             disp_binary(ambulancia[i]);
-//             if (delay(3) == 0) {
-//                 turnOff();
-//                 return;
-//             }
-//         }
-//     }
-// }
+    while (true) {
+        for(int i = 0 ; i < 21 ; i++) {
+            ledShow(ambulancia[i]);
+            disp_binary(ambulancia[i]);
+            if (delay(3) == 0) {
+                turnOff();
+                return;
+            }
+        }
+    }
+}
 
 void secuencia_formula1() {
     printf("Presione esc para finalizar la secuencia\n");
@@ -229,10 +229,6 @@ void secuencia_formula1() {
         ledShow(output);
         disp_binary(output);
 
-        // if (delay(3) == 0) { // espera un tiempo antes de iniciar la siguiente secuencia
-        //     turnOff();
-        //     return;
-        // }
         for (int i = 0; i < 30; i++) {
             if (delay(1) == 0) { // verifica si se presiona una tecla para salir
                 turnOff();
@@ -241,7 +237,7 @@ void secuencia_formula1() {
         }
     }
 }
-
+*/
 struct termios modifyTerminalConfig(void) {
     struct termios oldattr, newattr;
 
@@ -254,7 +250,6 @@ struct termios modifyTerminalConfig(void) {
     // Disable canonical mode and echo
     newattr.c_lflag &= ~(ICANON | ECHO);
 
-
     // Apply the new attributes to the terminal
     tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
 
@@ -262,13 +257,11 @@ struct termios modifyTerminalConfig(void) {
 }
 
 void restoreTerminalConfig(struct termios oldattr) {
-
     // Restore the original terminal attributes
     tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
 }
 
 bool keyHit(int index) {
-
     struct termios oldattr = modifyTerminalConfig();
     int ch, oldf;
 
@@ -281,8 +274,7 @@ bool keyHit(int index) {
 
     //U key is hit
     if(ch == 117) { //ASCII para u
-        if(delayTime[index] > 1000)
-        {
+        if(delayTime[index] > 1000) {
             delayTime[index] = delayTime[index] - 1000;
         }
     }
@@ -323,8 +315,7 @@ void ledShow(unsigned char output) {
 
 int delay(int index) {
     int i;
-    unsigned int j;
-    for(i = delayTime[index]; i > 0; --i) { /* repeat specified number of times */
+    for(i = delayTime[index]; i > 0; --i) {
         if(keyHit(index)) {
             return 0;
         }

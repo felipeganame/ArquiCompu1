@@ -1,0 +1,12 @@
+root1@raspberrypi:~/Desktop/feli $ gcc -c main.c
+main.c: In function ‘autoFantastico’:
+main.c:129:13: warning: implicit declaration of function ‘ledShow’ [-Wimplicit-function-declaration]
+  129 |             ledShow(output);
+      |             ^~~~~~~
+main.c: At top level:
+main.c:311:6: warning: conflicting types for ‘ledShow’
+  311 | void ledShow(unsigned char output) {
+      |      ^~~~~~~
+main.c:129:13: note: previous implicit declaration of ‘ledShow’ was here
+  129 |             ledShow(output);
+      |             ^~~~~~~
